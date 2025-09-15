@@ -7,8 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-builder.Services.AddDbContext<MottuDbContext>(options =>
-    options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection")));
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDbContext<MottuDbContext>(options =>
+        options.UseInMemoryDatabase("MottuDb"));
+}
+else
+{
+    builder.Services.AddDbContext<MottuDbContext>(options =>
+        options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection")));
+}
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -37,7 +45,10 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = string.Empty; // Para acessar diretamente na raiz
 });
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthorization();
 

@@ -28,6 +28,7 @@ namespace MottuApi.Controllers
         {
             var totalItems = await _context.Patios.CountAsync();
             var patios = await _context.Patios
+                .OrderBy(p => p.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();

@@ -1,12 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "vSWbe9PytDaOVcPSduQV/3PRyqp3vWhzLCdBueHVUGo=",
-  "Source": "MottuApi",
-  "BasePath": "_content/MottuApi",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
-}
+{"Version":1,"Hash":"vSWbe9PytDaOVcPSduQV/3PRyqp3vWhzLCdBueHVUGo=","Source":"MottuApi","BasePath":"_content/MottuApi","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}

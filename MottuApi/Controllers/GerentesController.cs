@@ -24,6 +24,7 @@ namespace MottuApi.Controllers
             var gerentes = await _context.Gerentes
                 .Include(g => g.Funcionario)
                 .Include(g => g.Patio)
+                .OrderBy(g => g.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();

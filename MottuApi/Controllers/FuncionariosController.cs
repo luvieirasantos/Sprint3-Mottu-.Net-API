@@ -23,6 +23,7 @@ namespace MottuApi.Controllers
             var totalItems = await _context.Funcionarios.CountAsync();
             var funcionarios = await _context.Funcionarios
                 .Include(f => f.Patio)
+                .OrderBy(f => f.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
