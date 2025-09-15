@@ -8,7 +8,7 @@
 ## 👥 Integrantes da Equipe
 - Nome 1 — RM: 558935 — Lu Vieira Santos
 - Nome 2 — RM: 555656 — Melissa Pereira
-- Nome 3 — RM: 558755 — E‑mail: Diego Furigo
+- Nome 3 — RM: 558755 — Diego Furigo
 
 ---
 
