@@ -2,11 +2,15 @@ using MottuApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Oracle.EntityFrameworkCore;
+using MottuApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+// Registrar serviços
+builder.Services.AddScoped<AuthService>();
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<MottuDbContext>(options =>
@@ -42,8 +46,11 @@ app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Mottu v1");
-    c.RoutePrefix = string.Empty; // Para acessar diretamente na raiz
+    c.RoutePrefix = "swagger"; // Mover para /swagger
 });
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 if (!app.Environment.IsDevelopment())
 {
@@ -53,5 +60,15 @@ if (!app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Popular banco com dados de exemplo em desenvolvimento
+if (app.Environment.IsDevelopment())
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var context = scope.ServiceProvider.GetRequiredService<MottuDbContext>();
+        await SeedData.SeedAsync(context);
+    }
+}
 
 app.Run();

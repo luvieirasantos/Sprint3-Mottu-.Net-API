@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Mottu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            color: #666;
+            line-height: 1.6;
+        }
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .links a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .links a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bem-vindo à API Mottu</h1>
+        <p>Esta é a API RESTful para gestão de funcionários, gerentes e pátios da Mottu.</p>
+        <p>Use os endpoints disponíveis para cadastrar e gerenciar os recursos.</p>
+        <h3>Funcionalidades:</h3>
+        <ul>
+            <li>✅ Autenticação de funcionários</li>
+            <li>✅ Cadastro de funcionários com hash de senha</li>
+            <li>✅ Gestão de pátios</li>
+            <li>✅ Gestão de gerentes</li>
+            <li>✅ Paginação em todos os endpoints</li>
+            <li>✅ Links HATEOAS para navegação</li>
+        </ul>
+        <h3>Dados de Exemplo:</h3>
+        <p>Email: joao.silva@mottu.com | Senha: 123456</p>
+        <div class="links">
+            <a href="/swagger">Documentação Swagger</a>
+            <a href="/api/funcionarios">Funcionários</a>
+            <a href="/api/gerentes">Gerentes</a>
+            <a href="/api/patios">Pátios</a>
+        </div>
+    </div>
+</body>
+</html>

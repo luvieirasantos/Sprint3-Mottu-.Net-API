@@ -86,11 +86,46 @@ dotnet run
 
 ---
 
-## 🔗 Endpoints (CRUD + Paginação + HATEOAS)
+## 🔗 Endpoints (CRUD + Paginação + HATEOAS + Autenticação)
 
 > **Paginação**: use `?page=1&pageSize=10`.  
 > **HATEOAS**: as respostas incluem `links` com `rel`, `href` e `method` (exemplos abaixo).  
-> **Status codes**: `200 OK`, `201 Created`, `204 No Content`, `400 Bad Request`, `404 Not Found`, `409 Conflict` (quando aplicável).
+> **Status codes**: `200 OK`, `201 Created`, `204 No Content`, `400 Bad Request`, `404 Not Found`, `409 Conflict` (quando aplicável).  
+> **Autenticação**: Sistema de login com hash de senha implementado.
+
+### Autenticação
+- `POST /api/auth/login` – Login de funcionário
+
+**Exemplo – login**
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao.silva@mottu.com",
+  "senha": "123456"
+}
+```
+
+**Resposta 200**
+```json
+{
+  "success": true,
+  "message": "Login realizado com sucesso",
+  "token": "base64-encoded-token",
+  "funcionario": {
+    "id": 1,
+    "nome": "João Silva",
+    "email": "joao.silva@mottu.com",
+    "patioId": 1,
+    "patio": {
+      "id": 1,
+      "nome": "Pátio Central",
+      "endereco": "Rua das Flores, 123 - Centro"
+    }
+  }
+}
+```
 
 ### Pátios
 - `GET /api/patios` – lista (paginação)
@@ -124,11 +159,11 @@ Content-Type: application/json
 ```
 
 ### Funcionários
-- `GET /api/funcionarios`
-- `GET /api/funcionarios/{id}`
-- `POST /api/funcionarios`
-- `PUT /api/funcionarios/{id}`
-- `DELETE /api/funcionarios/{id}`
+- `GET /api/funcionarios` – lista (paginação, sem exposição de senhas)
+- `GET /api/funcionarios/{id}` – detalhe (sem exposição de senha)
+- `POST /api/funcionarios` – cria (com hash automático de senha)
+- `PUT /api/funcionarios/{id}` – atualiza
+- `DELETE /api/funcionarios/{id}` – exclui
 
 **Exemplo – criação**
 ```http
@@ -138,8 +173,30 @@ Content-Type: application/json
 {
   "nome": "João Silva",
   "email": "joao@mottu.com",
-  "senha": "Senha@123",
+  "senha": "123456",
   "patioId": 1
+}
+```
+
+**Resposta 201** (senha não é retornada por segurança)
+```json
+{
+  "data": {
+    "id": 1,
+    "nome": "João Silva",
+    "email": "joao@mottu.com",
+    "patioId": 1,
+    "patio": {
+      "id": 1,
+      "nome": "Pátio Central",
+      "endereco": "Rua das Flores, 123 - Centro"
+    }
+  },
+  "links": {
+    "self": "/api/funcionarios/1",
+    "update": "/api/funcionarios/1",
+    "delete": "/api/funcionarios/1"
+  }
 }
 ```
 
@@ -171,6 +228,30 @@ dotnet test
 
 ---
 
+## 🚀 Melhorias Implementadas
+
+### Segurança
+- ✅ **Hash de senhas** com SHA256 antes de salvar no banco
+- ✅ **DTOs de resposta** que não expõem senhas
+- ✅ **Validação de email único** na criação de funcionários
+- ✅ **Validação de pátio existente** na criação de funcionários
+
+### Autenticação
+- ✅ **Sistema de login** com verificação de credenciais
+- ✅ **Geração de token** simples para autenticação
+- ✅ **Serviço de autenticação** separado e reutilizável
+
+### Dados de Exemplo
+- ✅ **Seed data** automático em desenvolvimento
+- ✅ **Dados pré-cadastrados** para testes
+- ✅ **Funcionários de exemplo** com credenciais conhecidas
+
+### Qualidade do Código
+- ✅ **Separação de responsabilidades** com serviços
+- ✅ **DTOs específicos** para criação e resposta
+- ✅ **Validações robustas** nos endpoints
+- ✅ **Tratamento de erros** adequado
+
 ## ✅ Checklist vs. Requisitos do Professor
 
 - [x] **3 entidades** principais (Pátio, Funcionário, Gerente) **com justificativa** de domínio
@@ -181,6 +262,8 @@ dotnet test
 - [x] **Swagger/OpenAPI** com descrição, parâmetros, exemplos e modelos
 - [x] **Repositório GitHub público** com **README** claro
 - [x] **Comando para rodar testes** (`dotnet test`)
+- [x] **Segurança** com hash de senhas e validações
+- [x] **Autenticação** básica implementada
 
 > **Penalidades que este README ajuda a evitar**  
 > -20 pts — falta de documentação Swagger • -100 pts — projeto não compila • -20 pts — sem README

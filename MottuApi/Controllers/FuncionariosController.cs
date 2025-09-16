@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MottuApi.Data;
 using MottuApi.Models;
+using MottuApi.Services;
 
 namespace MottuApi.Controllers
 {
@@ -10,15 +11,17 @@ namespace MottuApi.Controllers
     public class FuncionariosController : ControllerBase
     {
         private readonly MottuDbContext _context;
+        private readonly AuthService _authService;
 
-        public FuncionariosController(MottuDbContext context)
+        public FuncionariosController(MottuDbContext context, AuthService authService)
         {
             _context = context;
+            _authService = authService;
         }
 
         // GET: api/Funcionarios?page=1&pageSize=10
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Funcionario>>> GetFuncionarios(int page = 1, int pageSize = 10)
+        public async Task<ActionResult<IEnumerable<FuncionarioResponseDto>>> GetFuncionarios(int page = 1, int pageSize = 10)
         {
             var totalItems = await _context.Funcionarios.CountAsync();
             var funcionarios = await _context.Funcionarios
@@ -26,6 +29,14 @@ namespace MottuApi.Controllers
                 .OrderBy(f => f.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
+                .Select(f => new FuncionarioResponseDto
+                {
+                    Id = f.Id,
+                    Nome = f.Nome,
+                    Email = f.Email,
+                    PatioId = f.PatioId,
+                    Patio = f.Patio
+                })
                 .ToListAsync();
 
             var result = new
@@ -51,7 +62,7 @@ namespace MottuApi.Controllers
 
         // GET: api/Funcionarios/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Funcionario>> GetFuncionario(int id)
+        public async Task<ActionResult<FuncionarioResponseDto>> GetFuncionario(int id)
         {
             var funcionario = await _context.Funcionarios
                 .Include(f => f.Patio)
@@ -62,9 +73,18 @@ namespace MottuApi.Controllers
                 return NotFound();
             }
 
+            var funcionarioResponse = new FuncionarioResponseDto
+            {
+                Id = funcionario.Id,
+                Nome = funcionario.Nome,
+                Email = funcionario.Email,
+                PatioId = funcionario.PatioId,
+                Patio = funcionario.Patio
+            };
+
             var result = new
             {
-                Data = funcionario,
+                Data = funcionarioResponse,
                 Links = new
                 {
                     Self = Url.Action("GetFuncionario", new { id }),
@@ -108,14 +128,45 @@ namespace MottuApi.Controllers
 
         // POST: api/Funcionarios
         [HttpPost]
-        public async Task<ActionResult<Funcionario>> PostFuncionario(Funcionario funcionario)
+        public async Task<ActionResult<FuncionarioResponseDto>> PostFuncionario(FuncionarioCreateDto funcionarioDto)
         {
+            // Verificar se o pátio existe
+            var patioExists = await _context.Patios.AnyAsync(p => p.Id == funcionarioDto.PatioId);
+            if (!patioExists)
+            {
+                return BadRequest("Pátio não encontrado");
+            }
+
+            // Verificar se o email já existe
+            var emailExists = await _context.Funcionarios.AnyAsync(f => f.Email == funcionarioDto.Email);
+            if (emailExists)
+            {
+                return BadRequest("Email já cadastrado");
+            }
+
+            var funcionario = new Funcionario
+            {
+                Nome = funcionarioDto.Nome,
+                Email = funcionarioDto.Email,
+                Senha = _authService.HashPassword(funcionarioDto.Senha),
+                PatioId = funcionarioDto.PatioId
+            };
+            
             _context.Funcionarios.Add(funcionario);
             await _context.SaveChangesAsync();
 
+            var funcionarioResponse = new FuncionarioResponseDto
+            {
+                Id = funcionario.Id,
+                Nome = funcionario.Nome,
+                Email = funcionario.Email,
+                PatioId = funcionario.PatioId,
+                Patio = funcionario.Patio
+            };
+
             var result = new
             {
-                Data = funcionario,
+                Data = funcionarioResponse,
                 Links = new
                 {
                     Self = Url.Action("GetFuncionario", new { id = funcionario.Id }),

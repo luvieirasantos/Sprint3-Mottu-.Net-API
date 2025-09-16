@@ -1,5 +1,31 @@
 [
   {
+    "ContainingType": "MottuApi.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MottuApi.Models.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MottuApi.Models.LoginResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "MottuApi.Controllers.FuncionariosController",
     "Method": "GetFuncionarios",
     "RelativePath": "api/Funcionarios",
@@ -20,7 +46,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[MottuApi.Models.Funcionario, MottuApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[MottuApi.Models.FuncionarioResponseDto, MottuApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -39,14 +65,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "funcionario",
-        "Type": "MottuApi.Models.Funcionario",
+        "Name": "funcionarioDto",
+        "Type": "MottuApi.Models.FuncionarioCreateDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "MottuApi.Models.Funcionario",
+        "Type": "MottuApi.Models.FuncionarioResponseDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -72,7 +98,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "MottuApi.Models.Funcionario",
+        "Type": "MottuApi.Models.FuncionarioResponseDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
