@@ -5274,11 +5274,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Windows 10\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\MottuApi.csproj",
+      "projectUniqueName": "C:\\Users\\Windows 10\\Desktop\\Sprint3-Mottu-.Net-API-1\\MottuApi\\MottuApi.csproj",
       "projectName": "MottuApi",
-      "projectPath": "C:\\Users\\Windows 10\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\MottuApi.csproj",
+      "projectPath": "C:\\Users\\Windows 10\\Desktop\\Sprint3-Mottu-.Net-API-1\\MottuApi\\MottuApi.csproj",
       "packagesPath": "C:\\Users\\Windows 10\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Windows 10\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\obj\\",
+      "outputPath": "C:\\Users\\Windows 10\\Desktop\\Sprint3-Mottu-.Net-API-1\\MottuApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

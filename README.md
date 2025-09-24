@@ -220,6 +220,112 @@ Content-Type: application/json
 
 ---
 
+## 🛠️ Exemplos de Uso com cURL
+
+### Autenticação
+```bash
+# Login
+curl -X POST "http://localhost:5008/api/auth/login" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "email": "joao.silva@mottu.com",
+       "senha": "123456"
+     }'
+```
+
+### Pátios
+```bash
+# Listar pátios (paginado)
+curl -X GET "http://localhost:5008/api/patios?page=1&pageSize=10"
+
+# Criar pátio
+curl -X POST "http://localhost:5008/api/patios" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "nome": "Pátio Central",
+       "endereco": "Rua Principal, 123"
+     }'
+
+# Obter pátio por ID
+curl -X GET "http://localhost:5008/api/patios/1"
+
+# Atualizar pátio
+curl -X PUT "http://localhost:5008/api/patios/1" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "id": 1,
+       "nome": "Pátio Central Atualizado",
+       "endereco": "Rua Principal, 123"
+     }'
+
+# Excluir pátio
+curl -X DELETE "http://localhost:5008/api/patios/1"
+```
+
+### Funcionários
+```bash
+# Listar funcionários (paginado)
+curl -X GET "http://localhost:5008/api/funcionarios?page=1&pageSize=10"
+
+# Criar funcionário
+curl -X POST "http://localhost:5008/api/funcionarios" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "nome": "João Silva",
+       "email": "joao@mottu.com",
+       "senha": "123456",
+       "patioId": 1
+     }'
+
+# Obter funcionário por ID
+curl -X GET "http://localhost:5008/api/funcionarios/1"
+
+# Atualizar funcionário
+curl -X PUT "http://localhost:5008/api/funcionarios/1" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "id": 1,
+       "nome": "João Silva Atualizado",
+       "email": "joao@mottu.com",
+       "senha": "123456",
+       "patioId": 1
+     }'
+
+# Excluir funcionário
+curl -X DELETE "http://localhost:5008/api/funcionarios/1"
+```
+
+### Gerentes
+```bash
+# Listar gerentes (paginado)
+curl -X GET "http://localhost:5008/api/gerentes?page=1&pageSize=10"
+
+# Criar gerente
+curl -X POST "http://localhost:5008/api/gerentes" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "funcionarioId": 1,
+       "patioId": 1
+     }'
+
+# Obter gerente por ID
+curl -X GET "http://localhost:5008/api/gerentes/1"
+
+# Atualizar gerente
+curl -X PUT "http://localhost:5008/api/gerentes/1" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "id": 1,
+       "funcionarioId": 1,
+       "patioId": 1
+     }'
+
+# Excluir gerente
+curl -X DELETE "http://localhost:5008/api/gerentes/1"
+```
+
+---
+
 ## 🧪 Testes
 Execute todos os testes do repositório:
 ```bash

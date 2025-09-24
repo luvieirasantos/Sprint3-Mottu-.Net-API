@@ -19,7 +19,13 @@ namespace MottuApi.Controllers
             _authService = authService;
         }
 
-        // GET: api/Funcionarios?page=1&pageSize=10
+        /// <summary>
+        /// Obtém uma lista paginada de funcionários.
+        /// </summary>
+        /// <param name="page">Número da página (padrão: 1).</param>
+        /// <param name="pageSize">Tamanho da página (padrão: 10).</param>
+        /// <returns>Lista paginada de funcionários com links HATEOAS.</returns>
+        /// <response code="200">Retorna a lista de funcionários.</response>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FuncionarioResponseDto>>> GetFuncionarios(int page = 1, int pageSize = 10)
         {
@@ -60,7 +66,13 @@ namespace MottuApi.Controllers
             return Ok(result);
         }
 
-        // GET: api/Funcionarios/5
+        /// <summary>
+        /// Obtém um funcionário específico pelo ID.
+        /// </summary>
+        /// <param name="id">ID do funcionário.</param>
+        /// <returns>O funcionário solicitado com links HATEOAS.</returns>
+        /// <response code="200">Retorna o funcionário.</response>
+        /// <response code="404">Funcionário não encontrado.</response>
         [HttpGet("{id}")]
         public async Task<ActionResult<FuncionarioResponseDto>> GetFuncionario(int id)
         {
@@ -96,7 +108,14 @@ namespace MottuApi.Controllers
             return Ok(result);
         }
 
-        // PUT: api/Funcionarios/5
+        /// <summary>
+        /// Atualiza um funcionário existente.
+        /// </summary>
+        /// <param name="id">ID do funcionário.</param>
+        /// <param name="funcionario">Dados atualizados do funcionário.</param>
+        /// <response code="204">Funcionário atualizado com sucesso.</response>
+        /// <response code="400">Dados inválidos.</response>
+        /// <response code="404">Funcionário não encontrado.</response>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFuncionario(int id, Funcionario funcionario)
         {
@@ -126,7 +145,13 @@ namespace MottuApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Funcionarios
+        /// <summary>
+        /// Cria um novo funcionário.
+        /// </summary>
+        /// <param name="funcionarioDto">Dados do funcionário a ser criado.</param>
+        /// <returns>O funcionário criado com links HATEOAS.</returns>
+        /// <response code="201">Funcionário criado com sucesso.</response>
+        /// <response code="400">Dados inválidos ou email já cadastrado.</response>
         [HttpPost]
         public async Task<ActionResult<FuncionarioResponseDto>> PostFuncionario(FuncionarioCreateDto funcionarioDto)
         {
@@ -178,7 +203,12 @@ namespace MottuApi.Controllers
             return CreatedAtAction("GetFuncionario", new { id = funcionario.Id }, result);
         }
 
-        // DELETE: api/Funcionarios/5
+        /// <summary>
+        /// Exclui um funcionário pelo ID.
+        /// </summary>
+        /// <param name="id">ID do funcionário.</param>
+        /// <response code="204">Funcionário excluído com sucesso.</response>
+        /// <response code="404">Funcionário não encontrado.</response>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFuncionario(int id)
         {

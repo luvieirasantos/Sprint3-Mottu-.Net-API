@@ -16,7 +16,13 @@ namespace MottuApi.Controllers
             _context = context;
         }
 
-        // GET: api/Gerentes?page=1&pageSize=10
+        /// <summary>
+        /// Obtém uma lista paginada de gerentes.
+        /// </summary>
+        /// <param name="page">Número da página (padrão: 1).</param>
+        /// <param name="pageSize">Tamanho da página (padrão: 10).</param>
+        /// <returns>Lista paginada de gerentes com links HATEOAS.</returns>
+        /// <response code="200">Retorna a lista de gerentes.</response>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Gerente>>> GetGerentes(int page = 1, int pageSize = 10)
         {
@@ -50,7 +56,13 @@ namespace MottuApi.Controllers
             return Ok(result);
         }
 
-        // GET: api/Gerentes/5
+        /// <summary>
+        /// Obtém um gerente específico pelo ID.
+        /// </summary>
+        /// <param name="id">ID do gerente.</param>
+        /// <returns>O gerente solicitado com links HATEOAS.</returns>
+        /// <response code="200">Retorna o gerente.</response>
+        /// <response code="404">Gerente não encontrado.</response>
         [HttpGet("{id}")]
         public async Task<ActionResult<Gerente>> GetGerente(int id)
         {
@@ -78,7 +90,14 @@ namespace MottuApi.Controllers
             return Ok(result);
         }
 
-        // PUT: api/Gerentes/5
+        /// <summary>
+        /// Atualiza um gerente existente.
+        /// </summary>
+        /// <param name="id">ID do gerente.</param>
+        /// <param name="gerente">Dados atualizados do gerente.</param>
+        /// <response code="204">Gerente atualizado com sucesso.</response>
+        /// <response code="400">Dados inválidos.</response>
+        /// <response code="404">Gerente não encontrado.</response>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGerente(int id, Gerente gerente)
         {
@@ -108,7 +127,13 @@ namespace MottuApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Gerentes
+        /// <summary>
+        /// Cria um novo gerente.
+        /// </summary>
+        /// <param name="gerente">Dados do gerente a ser criado.</param>
+        /// <returns>O gerente criado com links HATEOAS.</returns>
+        /// <response code="201">Gerente criado com sucesso.</response>
+        /// <response code="400">Dados inválidos.</response>
         [HttpPost]
         public async Task<ActionResult<Gerente>> PostGerente(Gerente gerente)
         {
@@ -129,7 +154,12 @@ namespace MottuApi.Controllers
             return CreatedAtAction("GetGerente", new { id = gerente.Id }, result);
         }
 
-        // DELETE: api/Gerentes/5
+        /// <summary>
+        /// Exclui um gerente pelo ID.
+        /// </summary>
+        /// <param name="id">ID do gerente.</param>
+        /// <response code="204">Gerente excluído com sucesso.</response>
+        /// <response code="404">Gerente não encontrado.</response>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGerente(int id)
         {
