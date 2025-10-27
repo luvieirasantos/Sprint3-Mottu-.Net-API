@@ -8,8 +8,12 @@ namespace MottuApi.Data
     {
         public static async Task SeedAsync(MottuDbContext context, IConfiguration configuration)
         {
-            // Verificar se já existem dados
-            if (await context.Patios.AnyAsync())
+            // Verificar se já existem dados verificando especificamente por um funcionário de teste
+            var existingUser = await context.Funcionarios
+                .Where(f => f.Email == "joao.silva@mottu.com")
+                .FirstOrDefaultAsync();
+
+            if (existingUser != null)
                 return;
 
             // Criar pátios
