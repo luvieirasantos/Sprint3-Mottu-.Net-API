@@ -3,14 +3,60 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Oracle.EntityFrameworkCore;
 using MottuApi.Services;
+using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 
+// Adicionar Health Checks
+builder.Services.AddHealthChecks();
+
+// Configurar API Versioning
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = new UrlSegmentApiVersionReader();
+}).AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+
+// Configurar autenticação JWT
+var jwtKey = builder.Configuration["Jwt:Key"] ?? "MottuApiSecretKeyForDevelopmentAndProduction2025!@#$%";
+var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "MottuApi";
+var jwtAudience = builder.Configuration["Jwt:Audience"] ?? "MottuApiUsers";
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtIssuer,
+        ValidAudience = jwtAudience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+    };
+});
+
 // Registrar serviços
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddSingleton<PatioPrevisaoService>();
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<MottuDbContext>(options =>
@@ -37,6 +83,31 @@ builder.Services.AddSwaggerGen(c =>
             Email = "equipe@mottu.com"
         }
     });
+
+    // Configurar autenticação JWT no Swagger
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header usando o esquema Bearer. Exemplo: \"Authorization: Bearer {token}\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 
 var app = builder.Build();
@@ -57,7 +128,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
+
+// Mapear Health Check endpoint
+app.MapHealthChecks("/health");
 
 app.MapControllers();
 
@@ -72,3 +147,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.Run();
+
+// Expor Program para testes de integração
+public partial class Program { }

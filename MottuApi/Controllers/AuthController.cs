@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using MottuApi.Models;
 using MottuApi.Services;
+using Asp.Versioning;
 
 namespace MottuApi.Controllers
 {
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {

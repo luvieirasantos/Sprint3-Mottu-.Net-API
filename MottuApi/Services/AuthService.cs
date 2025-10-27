@@ -3,16 +3,21 @@ using MottuApi.Data;
 using MottuApi.Models;
 using System.Security.Cryptography;
 using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MottuApi.Services
 {
     public class AuthService
     {
         private readonly MottuDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public AuthService(MottuDbContext context)
+        public AuthService(MottuDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         public async Task<LoginResponse> LoginAsync(LoginRequest request)
@@ -39,8 +44,8 @@ namespace MottuApi.Services
                 };
             }
 
-            // Gerar token simples (em produção, use JWT)
-            var token = GenerateSimpleToken(funcionario);
+            // Gerar token JWT
+            var token = GenerateJwtToken(funcionario);
 
             return new LoginResponse
             {
@@ -66,10 +71,33 @@ namespace MottuApi.Services
             return hashedInput == hashedPassword;
         }
 
-        private string GenerateSimpleToken(Funcionario funcionario)
+        private string GenerateJwtToken(Funcionario funcionario)
         {
-            var tokenData = $"{funcionario.Id}:{funcionario.Email}:{DateTime.UtcNow:O}";
-            return Convert.ToBase64String(Encoding.UTF8.GetBytes(tokenData));
+            var jwtKey = _configuration["Jwt:Key"] ?? "MottuApiSecretKeyForDevelopmentAndProduction2025!@#$%";
+            var jwtIssuer = _configuration["Jwt:Issuer"] ?? "MottuApi";
+            var jwtAudience = _configuration["Jwt:Audience"] ?? "MottuApiUsers";
+
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, funcionario.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.NameIdentifier, funcionario.Id.ToString()),
+                new Claim(ClaimTypes.Name, funcionario.Nome),
+                new Claim(ClaimTypes.Email, funcionario.Email)
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: jwtIssuer,
+                audience: jwtAudience,
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(8),
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
