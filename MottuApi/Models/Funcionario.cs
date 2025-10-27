@@ -9,16 +9,16 @@ namespace MottuApi.Models
 
         [Required]
         [StringLength(100)]
-        public string Nome { get; set; }
+        public required string Nome { get; set; }
 
         [Required]
         [EmailAddress]
         [StringLength(100)]
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
         [Required]
         [StringLength(256)] // Para hash de senha
-        public string Senha { get; set; }
+        public required string Senha { get; set; }
 
         // Relacionamento com Patio
         public int PatioId { get; set; }

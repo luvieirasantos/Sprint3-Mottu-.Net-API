@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MottuApi.Models;
 using MottuApi.Services;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MottuApi.Controllers
 {
@@ -10,7 +11,9 @@ namespace MottuApi.Controllers
     /// </summary>
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PrevisaoController : ControllerBase
     {
         private readonly PatioPrevisaoService _previsaoService;

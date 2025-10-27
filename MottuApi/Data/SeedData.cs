@@ -6,7 +6,7 @@ namespace MottuApi.Data
 {
     public static class SeedData
     {
-        public static async Task SeedAsync(MottuDbContext context)
+        public static async Task SeedAsync(MottuDbContext context, IConfiguration configuration)
         {
             // Verificar se já existem dados
             if (await context.Patios.AnyAsync())
@@ -50,7 +50,7 @@ namespace MottuApi.Data
             };
 
             // Hash das senhas
-            var authService = new AuthService(context);
+            var authService = new AuthService(context, configuration);
             foreach (var funcionario in funcionarios)
             {
                 funcionario.Senha = authService.HashPassword(funcionario.Senha);

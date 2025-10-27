@@ -9,11 +9,11 @@ namespace MottuApi.Models
 
         [Required]
         [StringLength(100)]
-        public string Nome { get; set; }
+        public required string Nome { get; set; }
 
         [Required]
         [StringLength(200)]
-        public string Endereco { get; set; }
+        public required string Endereco { get; set; }
 
         // Relacionamento com Gerente
         public int? GerenteId { get; set; }

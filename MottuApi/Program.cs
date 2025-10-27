@@ -12,7 +12,11 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
 
 // Adicionar Health Checks
 builder.Services.AddHealthChecks();
@@ -142,7 +146,8 @@ if (app.Environment.IsDevelopment())
     using (var scope = app.Services.CreateScope())
     {
         var context = scope.ServiceProvider.GetRequiredService<MottuDbContext>();
-        await SeedData.SeedAsync(context);
+        var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+        await SeedData.SeedAsync(context, configuration);
     }
 }
 

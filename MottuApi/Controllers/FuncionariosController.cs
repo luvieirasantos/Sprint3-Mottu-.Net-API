@@ -4,12 +4,15 @@ using MottuApi.Data;
 using MottuApi.Models;
 using MottuApi.Services;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MottuApi.Controllers
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FuncionariosController : ControllerBase
     {
         private readonly MottuDbContext _context;
