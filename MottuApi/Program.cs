@@ -61,16 +61,10 @@ builder.Services.AddAuthentication(options =>
 // Registrar serviços
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddSingleton<PatioPrevisaoService>();
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddDbContext<MottuDbContext>(options =>
-        options.UseInMemoryDatabase("MottuDb"));
-}
-else
-{
-    builder.Services.AddDbContext<MottuDbContext>(options =>
-        options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection")));
-}
+
+// Configurar banco de dados Oracle
+builder.Services.AddDbContext<MottuDbContext>(options =>
+    options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -140,15 +134,17 @@ app.MapHealthChecks("/health");
 
 app.MapControllers();
 
-// Popular banco com dados de exemplo em desenvolvimento
-if (app.Environment.IsDevelopment())
+// Aplicar migrações e popular banco com dados de exemplo
+using (var scope = app.Services.CreateScope())
 {
-    using (var scope = app.Services.CreateScope())
-    {
-        var context = scope.ServiceProvider.GetRequiredService<MottuDbContext>();
-        var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
-        await SeedData.SeedAsync(context, configuration);
-    }
+    var context = scope.ServiceProvider.GetRequiredService<MottuDbContext>();
+    var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+
+    // Aplicar migrações pendentes
+    await context.Database.MigrateAsync();
+
+    // Popular dados iniciais se necessário
+    await SeedData.SeedAsync(context, configuration);
 }
 
 app.Run();
