@@ -8,7 +8,7 @@
 ## 👥 Integrantes da Equipe
 - Nome 1 — RM: 558935 — Lu Vieira Santos
 - Nome 2 — RM: 555656 — Melissa Pereira
-- Nome 3 — RM: 558755 — E‑mail: Diego Furigo
+- Nome 3 — RM: 558755 — Diego Furigo
 
 ---
 
@@ -61,9 +61,6 @@ dotnet restore
 ```
 
 ### 2) Definir ambiente e banco
-**Modo rápido (DEV – sem Oracle):**
-- O projeto está configurado para rodar com banco **InMemory** quando `ASPNETCORE_ENVIRONMENT=Development`.  
-- Nesse modo você já consegue abrir o Swagger e exercitar os endpoints.
 
 **Modo com Oracle (produção/aula):**
 1. Ajuste a connection string `DefaultConnection` no `appsettings.json`.
