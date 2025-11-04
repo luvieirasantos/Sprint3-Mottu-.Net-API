@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi.Tests\\MottuApi.Tests.csproj": {}
+    "C:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi.Tests\\MottuApi.Tests.csproj": {}
   },
   "projects": {
-    "c:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi.Tests\\MottuApi.Tests.csproj": {
+    "C:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi.Tests\\MottuApi.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi.Tests\\MottuApi.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi.Tests\\MottuApi.Tests.csproj",
         "projectName": "MottuApi.Tests",
-        "projectPath": "c:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi.Tests\\MottuApi.Tests.csproj",
+        "projectPath": "C:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi.Tests\\MottuApi.Tests.csproj",
         "packagesPath": "C:\\Users\\gldsa\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi.Tests\\obj\\",
+        "outputPath": "C:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\gldsa\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,8 +26,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "c:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\MottuApi.csproj": {
-                "projectPath": "c:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\MottuApi.csproj"
+              "C:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\MottuApi.csproj": {
+                "projectPath": "C:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\MottuApi.csproj"
               }
             }
           }
@@ -97,14 +97,14 @@
         }
       }
     },
-    "c:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\MottuApi.csproj": {
+    "C:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\MottuApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\MottuApi.csproj",
+        "projectUniqueName": "C:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\MottuApi.csproj",
         "projectName": "MottuApi",
-        "projectPath": "c:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\MottuApi.csproj",
+        "projectPath": "C:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\MottuApi.csproj",
         "packagesPath": "C:\\Users\\gldsa\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\obj\\",
+        "outputPath": "C:\\Users\\gldsa\\OneDrive\\Desktop\\Sprint3-Mottu-.Net-API\\MottuApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\gldsa\\AppData\\Roaming\\NuGet\\NuGet.Config"

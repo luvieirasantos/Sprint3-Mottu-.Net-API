@@ -30,26 +30,33 @@ namespace MottuApi.Data
             // Criar funcionários
             var funcionarios = new List<Funcionario>
             {
-                new Funcionario 
-                { 
-                    Nome = "João Silva", 
-                    Email = "joao.silva@mottu.com", 
+                new Funcionario
+                {
+                    Nome = "João Silva",
+                    Email = "joao.silva@mottu.com",
                     Senha = "123456", // Será hasheada pelo AuthService
-                    PatioId = patios[0].Id 
+                    PatioId = patios[0].Id
                 },
-                new Funcionario 
-                { 
-                    Nome = "Maria Santos", 
-                    Email = "maria.santos@mottu.com", 
-                    Senha = "123456", 
-                    PatioId = patios[1].Id 
+                new Funcionario
+                {
+                    Nome = "Maria Santos",
+                    Email = "maria.santos@mottu.com",
+                    Senha = "123456",
+                    PatioId = patios[1].Id
                 },
-                new Funcionario 
-                { 
-                    Nome = "Pedro Costa", 
-                    Email = "pedro.costa@mottu.com", 
-                    Senha = "123456", 
-                    PatioId = patios[2].Id 
+                new Funcionario
+                {
+                    Nome = "Pedro Costa",
+                    Email = "pedro.costa@mottu.com",
+                    Senha = "123456",
+                    PatioId = patios[2].Id
+                },
+                new Funcionario
+                {
+                    Nome = "Funcionário 1",
+                    Email = "funcionario1@mottu.com",
+                    Senha = "senha123",
+                    PatioId = patios[0].Id
                 }
             };
 

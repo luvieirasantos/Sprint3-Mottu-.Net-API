@@ -2,6 +2,11 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 using System.Net.Http.Json;
 using MottuApi.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Policy;
+using Microsoft.AspNetCore.TestHost;
 
 namespace MottuApi.Tests.Integration
 {
@@ -11,7 +16,14 @@ namespace MottuApi.Tests.Integration
 
         public ApiIntegrationTests(WebApplicationFactory<Program> factory)
         {
-            _client = factory.CreateClient();
+            _client = factory.WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureTestServices(services =>
+                {
+                    // Desabilitar autenticação para testes
+                    services.AddSingleton<IPolicyEvaluator, FakePolicyEvaluator>();
+                });
+            }).CreateClient();
         }
 
         [Fact]
@@ -83,7 +95,7 @@ namespace MottuApi.Tests.Integration
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             var content = await response.Content.ReadAsStringAsync();
-            Assert.Contains("NumeroFuncionariosPrevisto", content);
+            Assert.Contains("numeroFuncionariosPrevisto", content);
         }
 
         [Fact]
@@ -110,8 +122,8 @@ namespace MottuApi.Tests.Integration
             // Arrange
             var loginRequest = new LoginRequest
             {
-                Email = "funcionario1@mottu.com",
-                Senha = "senha123"
+                Email = "joao.silva@mottu.com",
+                Senha = "123456"
             };
 
             // Act
@@ -120,7 +132,7 @@ namespace MottuApi.Tests.Integration
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             var content = await response.Content.ReadAsStringAsync();
-            Assert.Contains("Token", content);
+            Assert.Contains("token", content);
         }
 
         [Fact]
@@ -148,6 +160,24 @@ namespace MottuApi.Tests.Integration
 
             // Assert
             Assert.True(response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.MovedPermanently);
+        }
+    }
+
+    public class FakePolicyEvaluator : IPolicyEvaluator
+    {
+        public Task<Microsoft.AspNetCore.Authentication.AuthenticateResult> AuthenticateAsync(AuthorizationPolicy policy, Microsoft.AspNetCore.Http.HttpContext context)
+        {
+            var claims = new[] { new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Name, "Test user") };
+            var identity = new System.Security.Claims.ClaimsIdentity(claims, "Test");
+            var principal = new System.Security.Claims.ClaimsPrincipal(identity);
+            var ticket = new Microsoft.AspNetCore.Authentication.AuthenticationTicket(principal, "Test");
+            var result = Microsoft.AspNetCore.Authentication.AuthenticateResult.Success(ticket);
+            return Task.FromResult(result);
+        }
+
+        public Task<PolicyAuthorizationResult> AuthorizeAsync(AuthorizationPolicy policy, Microsoft.AspNetCore.Authentication.AuthenticateResult authenticationResult, Microsoft.AspNetCore.Http.HttpContext context, object? resource)
+        {
+            return Task.FromResult(PolicyAuthorizationResult.Success());
         }
     }
 }

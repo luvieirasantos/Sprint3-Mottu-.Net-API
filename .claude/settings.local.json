@@ -13,7 +13,8 @@
       "Bash(dotnet run)",
       "Bash(timeout:*)",
       "Bash(curl:*)",
-      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2FvLnNpbHZhQG1vdHR1LmNvbSIsImp0aSI6ImQ4M2ZjMWEyLTM1ZTQtNDBhNy05YTlhLTg3MzUzZDg1N2JkMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJKb8OjbyBTaWx2YSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImpvYW8uc2lsdmFAbW90dHUuY29tIiwiZXhwIjoxNzYxNjA5MzcyLCJpc3MiOiJNb3R0dUFwaSIsImF1ZCI6Ik1vdHR1QXBpVXNlcnMifQ.yP_aIBFAshg81xtNcn-WKaLC1aHwDntUSPUokwWNdwM\")"
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2FvLnNpbHZhQG1vdHR1LmNvbSIsImp0aSI6ImQ4M2ZjMWEyLTM1ZTQtNDBhNy05YTlhLTg3MzUzZDg1N2JkMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiMSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJKb8OjbyBTaWx2YSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImpvYW8uc2lsdmFAbW90dHUuY29tIiwiZXhwIjoxNzYxNjA5MzcyLCJpc3MiOiJNb3R0dUFwaSIsImF1ZCI6Ik1vdHR1QXBpVXNlcnMifQ.yP_aIBFAshg81xtNcn-WKaLC1aHwDntUSPUokwWNdwM\")",
+      "Bash(dotnet test:*)"
     ],
     "deny": [],
     "ask": []
