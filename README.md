@@ -1,6 +1,6 @@
 # API Mottu – Gestão de Pátios, Funcionários e Gerentes
 
-> **3ª Sprint – ADVANCED BUSINESS DEVELOPMENT WITH .NET**  
+> **4ª Sprint – ADVANCED BUSINESS DEVELOPMENT WITH .NET**  
 > Projeto em ASP.NET Core Web API seguindo boas práticas REST (paginação, HATEOAS, status codes adequados) e documentação via Swagger/OpenAPI.
 
 ---
@@ -55,7 +55,7 @@ O domínio escolhido representa a **operação de pátios da Mottu**. Há relaç
 
 ### 1) Clonar e restaurar
 ```bash
-git clone <url-do-repo>
+git clone https://github.com/luvieirasantos/Sprint3-Mottu-.Net-API.git
 cd sprint3-.Net/MottuApi
 dotnet restore
 ```
